@@ -1,4 +1,4 @@
-name: Build and push docker image to ECR
+sname: Build and push docker image to ECR
 on:
   push:
     branches: [ "master" ]
@@ -21,6 +21,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
+        aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
@@ -39,7 +40,7 @@ jobs:
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
     - name: Update kube config
-      run: aws eks update-kubeconfig --name sample
+      run: aws eks update-kubeconfig --name eksdemo
 
     - name: Deploy nodejs helm chart to EKS
       run: |
