@@ -1,4 +1,4 @@
-sname: Build and push docker image to ECR
+name: Build and push docker image to ECR
 on:
   push:
     branches: [ "master" ]
